@@ -1,6 +1,5 @@
-<h2><%= @doctor.name %>'s Appointments</h2>
-  <ul>
-    <% @doctor.appointments.each do |appt| %>
-      <li><%= link_to appt.patient.name, patient_path %>: <%= appt.appointment_datetime.to_formatted_s(:long).insert(-6, "at ") %></li>
-    <% end %>
-  </ul>
+<%= @doctor.name %><br>
+<% @doctor.appointments.each do |appointment| %>
+  <% @doctor_patient = @doctor.patients.find(appointment.patient_id) %>
+  <%= link_to @doctor_patient.name, patient_path(@doctor_patient) %> - <%= link_to appointment.appointment_datetime.strftime("%B %d, %Y at %k:%M"), appointment_path(appointment) %><br>
+<% end %>
