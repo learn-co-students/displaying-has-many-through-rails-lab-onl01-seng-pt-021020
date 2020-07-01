@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @patient.name %>
+</p>
+
+<p>
+  <strong>Age:</strong>
+  <%= @patient.age %>
+</p>
+
+<p>
+  <strong>Appointments:</strong><br><br>
+  <% @patient.appointments.each do |app| %>
+    <% @doctor = @patient.doctors.find(app.doctor_id) %>
+    With Dr. <%= link_to @doctor.name, doctor_path(@doctor) %>, On: <%= link_to app.appointment_datetime.strftime("%B %d, %Y at %k:%M"), appointment_path(app)%><br><br>
+  <% end %>
+
+
+<%= link_to 'Edit', edit_patient_path(@patient) %> |
+<%= link_to 'Back', patients_path %>
